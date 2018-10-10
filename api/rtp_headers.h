@@ -87,9 +87,9 @@ struct CsrcAudioLevelList {
   CsrcAudioLevelList() = default;
   CsrcAudioLevelList(const CsrcAudioLevelList&) = default;
   CsrcAudioLevelList& operator=(const CsrcAudioLevelList&) = default;
-  uint8_t numAudioLevels = 0;
-  // arrOfAudioLevels has the same ordering as RTPHeader.arrOfCSRCs
-  uint8_t arrOfAudioLevels[kRtpCsrcSize];
+  uint8_t num_audio_levels = 0;
+  // arr_of_audio_levels has the same ordering as RTPHeader.arrOfCSRCs
+  uint8_t arr_of_audio_levels[kRtpCsrcSize];
 };
 
 struct RTPHeaderExtension {

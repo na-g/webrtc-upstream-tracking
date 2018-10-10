@@ -333,9 +333,9 @@ TEST(RtpPacketTest, CreateWithDynamicSizedExtensionCsrcAudioLevel) {
   packet.SetTimestamp(kTimestamp);
   packet.SetSsrc(kSsrc);
   CsrcAudioLevelList levels;
-  levels.numAudioLevels = kCsrcAudioLevelsSize;
+  levels.num_audio_levels = kCsrcAudioLevelsSize;
   for (uint8_t i = 0; i < kCsrcAudioLevelsSize; i++) {
-    levels.arrOfAudioLevels[i] = kCsrcAudioLevels[i];
+    levels.arr_of_audio_levels[i] = kCsrcAudioLevels[i];
   }
   packet.SetExtension<CsrcAudioLevel>(levels);
   EXPECT_THAT(kPacketWithCsrcAudioLevels,
@@ -775,11 +775,11 @@ TEST(RtpPacketTest, ParseDynamicSizeExtension) {
   EXPECT_EQ(mid, "midval");
   CsrcAudioLevelList csrcAudioLevels;
   EXPECT_TRUE(packet.GetExtension<CsrcAudioLevel>(&csrcAudioLevels));
-  EXPECT_EQ(csrcAudioLevels.numAudioLevels, 4);
-  EXPECT_EQ(csrcAudioLevels.arrOfAudioLevels[0], 0x01);
-  EXPECT_EQ(csrcAudioLevels.arrOfAudioLevels[1], 0x10);
-  EXPECT_EQ(csrcAudioLevels.arrOfAudioLevels[2], 0x00);
-  EXPECT_EQ(csrcAudioLevels.arrOfAudioLevels[3], 0x7f);
+  EXPECT_EQ(csrcAudioLevels.num_audio_levels, 4);
+  EXPECT_EQ(csrcAudioLevels.arr_of_audio_levels[0], 0x01);
+  EXPECT_EQ(csrcAudioLevels.arr_of_audio_levels[1], 0x10);
+  EXPECT_EQ(csrcAudioLevels.arr_of_audio_levels[2], 0x00);
+  EXPECT_EQ(csrcAudioLevels.arr_of_audio_levels[3], 0x7f);
 }
 
 TEST(RtpPacketTest, ParseWithMid) {

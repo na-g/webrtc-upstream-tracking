@@ -450,10 +450,10 @@ bool CsrcAudioLevel::Parse(rtc::ArrayView<const uint8_t> data,
                            CsrcAudioLevelList* csrcAudioLevels) {
   if (data.size() < 1 || data.size() > kRtpCsrcSize)
     return false;
-  csrcAudioLevels->numAudioLevels = data.size();
-  for(uint8_t i = 0; i < csrcAudioLevels->numAudioLevels; i++) {
+  csrcAudioLevels->num_audio_levels = data.size();
+  for(uint8_t i = 0; i < csrcAudioLevels->num_audio_levels; i++) {
     // Ensure range is 0 to 127 inclusive
-    csrcAudioLevels->arrOfAudioLevels[i] = 0x7f & data[i];
+    csrcAudioLevels->arr_of_audio_levels[i] = 0x7f & data[i];
   }
   return true;
 }
@@ -511,18 +511,18 @@ constexpr RTPExtensionType RtpMid::kId;
 constexpr const char RtpMid::kUri[];
 
 size_t CsrcAudioLevel::ValueSize(const CsrcAudioLevelList& csrcAudioLevels) {
-  return csrcAudioLevels.numAudioLevels;
+  return csrcAudioLevels.num_audio_levels;
 }
 
 bool CsrcAudioLevel::Write(rtc::ArrayView<uint8_t> data,
                            const CsrcAudioLevelList& csrcAudioLevels) {
-  RTC_DCHECK_GE(csrcAudioLevels.numAudioLevels, 0);
-  for(uint8_t i = 0; i < csrcAudioLevels.numAudioLevels; i++) {
+  RTC_DCHECK_GE(csrcAudioLevels.num_audio_levels, 0);
+  for(uint8_t i = 0; i < csrcAudioLevels.num_audio_levels; i++) {
     ByteWriter<uint8_t>::WriteBigEndian(data.data() + i,
-      csrcAudioLevels.arrOfAudioLevels[i] & 0x7f);
+      csrcAudioLevels.arr_of_audio_levels[i] & 0x7f);
   }
   // This extension if used must have at least one audio level
-  return csrcAudioLevels.numAudioLevels;
+  return csrcAudioLevels.num_audio_levels;
 }
 
 }  // namespace webrtc

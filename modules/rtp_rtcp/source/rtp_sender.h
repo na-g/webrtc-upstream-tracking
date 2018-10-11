@@ -96,6 +96,8 @@ class RTPSender {
 
   void SetMid(const std::string& mid);
 
+  void SetRtpStreamId(const std::string& rtp_stream_id);
+
   uint16_t SequenceNumber() const;
   void SetSequenceNumber(uint16_t seq);
 
@@ -325,6 +327,9 @@ class RTPSender {
   absl::optional<uint32_t> ssrc_ RTC_GUARDED_BY(send_critsect_);
   // MID value to send in the MID header extension.
   std::string mid_ RTC_GUARDED_BY(send_critsect_);
+  // RTP stream ID header extension value, an empty string ID will supress its
+  // addition to packets.
+  std::string rtp_stream_id_ RTC_GUARDED_BY(send_critsect_);
   uint32_t last_rtp_timestamp_ RTC_GUARDED_BY(send_critsect_);
   int64_t capture_time_ms_ RTC_GUARDED_BY(send_critsect_);
   int64_t last_timestamp_time_ms_ RTC_GUARDED_BY(send_critsect_);

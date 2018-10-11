@@ -1158,6 +1158,10 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
     // This is a no-op if the MID header extension is not registered.
     packet->SetExtension<RtpMid>(mid_);
   }
+  if (!rtp_stream_id_.empty()) {
+    // This is a no-op if the header extension is not registered.
+    packet->SetExtension<RtpStreamId>(rtp_stream_id_);
+  }
   return packet;
 }
 
@@ -1244,6 +1248,12 @@ void RTPSender::SetMid(const std::string& mid) {
   mid_ = mid;
 }
 
+void RTPSender::SetRtpStreamId(const std::string& rtp_stream_id) {
+  // This is configured via the API.
+  rtc::CritScope lock(&send_critsect_);
+  rtp_stream_id_ = rtp_stream_id;
+}
+
 absl::optional<uint32_t> RTPSender::FlexfecSsrc() const {
   if (video_) {
     return video_->FlexfecSsrc();
@@ -1328,6 +1338,10 @@ std::unique_ptr<RtpPacketToSend> RTPSender::BuildRtxPacket(
       // This is a no-op if the MID header extension is not registered.
       rtx_packet->SetExtension<RtpMid>(mid_);
     }
+
+    // Do the same for the RTP Stream ID header extension
+    if (!rtp_stream_id_.empty())
+      rtx_packet->SetExtension<RtpStreamId>(rtp_stream_id_);
   }
 
   uint8_t* rtx_payload =

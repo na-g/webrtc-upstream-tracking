@@ -64,6 +64,10 @@ struct RtpConfig {
 
   std::vector<uint32_t> ssrcs;
 
+  // If the RtpStreamId extension is set, these values will be used to
+  // identify the substreams
+  std::vector<std::string> rtp_stream_ids;
+
   // The value to send in the MID RTP header extension if the extension is
   // included in the list of extensions.
   std::string mid;

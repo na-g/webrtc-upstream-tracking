@@ -324,6 +324,12 @@ void ModuleRtpRtcpImpl::SetMid(const std::string& mid) {
   // RTCP, this will need to be passed down to the RTCPSender also.
 }
 
+void ModuleRtpRtcpImpl::SetRtpStreamId(const std::string& rtp_stream_id) {
+  if (rtp_sender_) {
+    rtp_sender_->SetRtpStreamId(rtp_stream_id);
+  }
+}
+
 void ModuleRtpRtcpImpl::SetCsrcs(const std::vector<uint32_t>& csrcs) {
   rtcp_sender_.SetCsrcs(csrcs);
   rtp_sender_->SetCsrcs(csrcs);

@@ -298,6 +298,12 @@ struct RtpExtension {
   static const char kPlayoutDelayUri[];
   static const int kPlayoutDelayDefaultId;
 
+  static const char* kRtpStreamIdUri;
+  static const int kRtpStreamIdDefaultId;
+
+  static const char* kRepairedRtpStreamIdUri;
+  static const int kRepairedRtpStreamIdDefaultId;
+
   // Header extension for identifying media section within a transport.
   // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation-49#section-15
   static const char kMidUri[];

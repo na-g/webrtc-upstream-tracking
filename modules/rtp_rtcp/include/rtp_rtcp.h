@@ -176,6 +176,11 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // Once set, this value can not be changed or removed.
   virtual void SetMid(const std::string& mid) = 0;
 
+  // Sets RTP stream ID header extension value.
+  // The RtpStreamId header extension should be registered for this to do anything.
+  // Once set, this value can not be changed or removed.
+  virtual void SetRtpStreamId(const std::string& mid) = 0;
+
   // Sets CSRC.
   // |csrcs| - vector of CSRCs
   virtual void SetCsrcs(const std::vector<uint32_t>& csrcs) = 0;

@@ -483,16 +483,24 @@ void RtpVideoSender::DeliverRtcp(const uint8_t* packet, size_t length) {
 }
 
 void RtpVideoSender::ConfigureSsrcs(const RtpConfig& rtp_config) {
+  // If we have RTP stream ids, we must have one for every SSRC
+  // (even if it's "")
+  bool has_rtp_stream_ids = rtp_config.rtp_stream_ids.size();
+  if (has_rtp_stream_ids)
+    RTC_DCHECK_EQ(rtp_config.rtp_stream_ids.size(), rtp_config.ssrcs.size());
+
   // Configure regular SSRCs.
   for (size_t i = 0; i < rtp_config.ssrcs.size(); ++i) {
     uint32_t ssrc = rtp_config.ssrcs[i];
     RtpRtcp* const rtp_rtcp = rtp_modules_[i].get();
     rtp_rtcp->SetSSRC(ssrc);
-
     // Restore RTP state if previous existed.
     auto it = suspended_ssrcs_.find(ssrc);
     if (it != suspended_ssrcs_.end())
       rtp_rtcp->SetRtpState(it->second);
+    // Add RTP stream ID
+    if (has_rtp_stream_ids)
+      rtp_rtcp->SetRtpStreamId(rtp_config.rtp_stream_ids[i]);
   }
 
   // Set up RTX if available.

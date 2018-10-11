@@ -136,6 +136,14 @@ const char RtpExtension::kGenericFrameDescriptorUri[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-00";
 const int RtpExtension::kGenericFrameDescriptorDefaultId = 11;
 
+const char* RtpExtension::kRtpStreamIdUri =
+    "urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id";
+const int RtpExtension::kRtpStreamIdDefaultId = 12;
+
+const char* RtpExtension::kRepairedRtpStreamIdUri =
+    "urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id";
+const int RtpExtension::kRepairedRtpStreamIdDefaultId = 13;
+
 const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";
 
@@ -148,6 +156,8 @@ constexpr int RtpExtension::kOneByteHeaderExtensionMaxValueSize;
 bool RtpExtension::IsSupportedForAudio(const std::string& uri) {
   return uri == webrtc::RtpExtension::kAudioLevelUri ||
          uri == webrtc::RtpExtension::kTransportSequenceNumberUri ||
+         uri == webrtc::RtpExtension::kRtpStreamIdUri ||
+         uri == webrtc::RtpExtension::kRepairedRtpStreamIdUri ||
          uri == webrtc::RtpExtension::kMidUri;
 }
 
@@ -159,6 +169,8 @@ bool RtpExtension::IsSupportedForVideo(const std::string& uri) {
          uri == webrtc::RtpExtension::kPlayoutDelayUri ||
          uri == webrtc::RtpExtension::kVideoContentTypeUri ||
          uri == webrtc::RtpExtension::kVideoTimingUri ||
+         uri == webrtc::RtpExtension::kRtpStreamIdUri ||
+         uri == webrtc::RtpExtension::kRepairedRtpStreamIdUri ||
          uri == webrtc::RtpExtension::kMidUri ||
          uri == webrtc::RtpExtension::kFrameMarkingUri ||
          uri == webrtc::RtpExtension::kGenericFrameDescriptorUri;
@@ -179,6 +191,8 @@ bool RtpExtension::IsEncryptionSupported(const std::string& uri) {
          uri == webrtc::RtpExtension::kTransportSequenceNumberUri ||
          uri == webrtc::RtpExtension::kPlayoutDelayUri ||
          uri == webrtc::RtpExtension::kVideoContentTypeUri ||
+         uri == webrtc::RtpExtension::kRtpStreamIdUri ||
+         uri == webrtc::RtpExtension::kRepairedRtpStreamIdUri ||
          uri == webrtc::RtpExtension::kMidUri;
 }
 

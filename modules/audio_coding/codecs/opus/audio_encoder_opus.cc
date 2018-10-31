@@ -277,7 +277,7 @@ AudioEncoderOpusConfig AudioEncoderOpusImpl::CreateConfig(
 absl::optional<AudioEncoderOpusConfig> AudioEncoderOpusImpl::SdpToConfig(
     const SdpAudioFormat& format) {
   if (STR_CASE_CMP(format.name.c_str(), "opus") != 0 ||
-      format.clockrate_hz != 48000 || format.num_channels != 2) {
+      format.clockrate_hz != 48000) {
     return absl::nullopt;
   }
 
